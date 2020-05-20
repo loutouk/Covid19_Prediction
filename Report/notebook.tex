@@ -1,0 +1,785 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Covid 19 Predictions}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+This notebook serves as report for the Machine Learning module of the
+Nantes Universiy Master Degree of Computing Science. Louis Boursier on
+may 19, 2020.
+
+The goal is to build a model that will predict the future number of
+cases according to the past numbers of cases. The model will be trained
+on several european countries data records, and will be tested on a new
+one.
+
+\hypertarget{data-introduction}{%
+\section{Data introduction}\label{data-introduction}}
+
+\href{https://www.kaggle.com/optimo/covid19-enriched-dataset-week-2}{The
+dataset has been found on Kaggle}. It is called
+\emph{Covid19\_Enriched\_Dataset\_week\_2} and is a gather of different
+files. It contains information about the coronavirus and others relevant
+variables that may be required in order to predict Covid's progression.
+That information was gathered from the OECD site and some other
+government sites and is up to date (March 2020). Whatever was missing
+has been filled from Wikipedia with data that is actual for 2018.
+
+It is under \href{https://opendatacommons.org/licenses/dbcl/1.0/}{Open
+Database license} which allows us to freely share, modify, and use a
+database while maintaining this same freedom for others.
+
+\textbf{The first thing to bear in mind is that it does not really make
+sense to compare countries with one another.} Indeed, each country has
+its own way of keeping record of its deaths. On one extreme, there is
+Belgium, that includes death in hospitals, care homes but also any death
+where the virus is suspected to have play a part. On the other, we have
+some countries that have suspiciously low cases numbers. This might
+explain why Belgium is the country that suffers the most in proportion,
+according to the data.
+
+Moreover, because countries have different policies on testing, the
+number of case can also not be compared between them. Worse, the testing
+policy can change inside a country and bias data if it is not taken into
+account. For example, France decided to include deaths in nursing home
+several week after the begining of the spread of the disease. This
+resulted in an (artifical) spike in the number of deaths.
+
+Finally, Covid's casualities and progression are probably correlated
+with a significant amount of variables that are not in this dataset, and
+they may be needed for building a good predictive model.
+
+A solution would be to treat each country individually. The problem is
+that there are only roughly 60 rows per country which is not much for
+any kind of machine learning project.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}218}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+          
+          \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{enriched\PYZus{}covid\PYZus{}19\PYZus{}week\PYZus{}2.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{df}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}218}]:} (18816, 38)
+\end{Verbatim}
+            
+    The dataset contains 18816 rows of 38 distinct variables.
+
+    It contains both information direclty related to the Covid, like the
+\textbf{ConfirmedCases}, and more general information like
+\textbf{smokers\_perc}. We notice the artifical variable \textbf{Id}
+that we should remove.
+
+    \hypertarget{data-preparation}{%
+\section{Data preparation}\label{data-preparation}}
+
+\hypertarget{feature-selection}{%
+\subsection{Feature selection}\label{feature-selection}}
+
+We can also remove the \textbf{Province\_State}, as we will not use it.
+We remove the \textbf{Date} because \textbf{rows are already ordered and
+the sequence of apparition is enough for the future model}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}219}]:} \PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Province\PYZus{}State}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{data-type-checking}{%
+\subsection{Data type checking}\label{data-type-checking}}
+
+We should identify wrong types like \emph{NaN}, empty or wrong values.
+None have been seen.
+
+    \hypertarget{data-exploration}{%
+\subsection{Data exploration}\label{data-exploration}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}220}]:} \PY{c+c1}{\PYZsh{} Pick a few countries to get an overview}
+          
+          \PY{n}{spain} \PY{o}{=}  \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{Country\PYZus{}Region} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Spain}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{italy} \PY{o}{=}  \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{Country\PYZus{}Region} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Italy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{france} \PY{o}{=}  \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{Country\PYZus{}Region} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{France}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{belgium} \PY{o}{=}  \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{Country\PYZus{}Region} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Belgium}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{uk} \PY{o}{=}  \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{Country\PYZus{}Region} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{United Kingdom}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{germany} \PY{o}{=}  \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{Country\PYZus{}Region} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Germany}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}224}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{18}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{spain}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n}{spain}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ConfirmedCases}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PYZbs{}
+                   \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Spain confirmed cases}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{italy}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n}{italy}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ConfirmedCases}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PYZbs{}
+                   \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Italy confirmed cases}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{france}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n}{france}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ConfirmedCases}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PYZbs{}
+                   \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{France confirmed cases}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{belgium}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n}{belgium}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ConfirmedCases}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PYZbs{}
+                   \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Belgium confirmed cases}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{uk}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n}{uk}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ConfirmedCases}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PYZbs{}
+                   \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{UK confirmed cases}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{germany}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n}{germany}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ConfirmedCases}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PYZbs{}
+                   \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Germany confirmed cases}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Days}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Confirmed Cases}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{upper left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}225}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{18}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{spain}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n}{spain}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fatalities}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PYZbs{}
+                   \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Spain fatalities}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{italy}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n}{italy}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fatalities}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PYZbs{}
+                   \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Italy fatalities}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{france}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n}{france}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fatalities}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PYZbs{}
+                   \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{France fatalities}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{belgium}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n}{belgium}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fatalities}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PYZbs{}
+                   \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Belgium confirmed cases}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{uk}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n}{uk}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fatalities}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PYZbs{}
+                   \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{UK fatalities}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{germany}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n}{germany}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fatalities}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PYZbs{}
+                   \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Germany fatalities}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Days}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fatalities}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{upper left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The number of cases seems to correlate with the number of deaths.
+
+    We remove the variable \textbf{Country\_Region} as we want our model to
+generalize over different countries so that it can predict for a country
+it has not seen during training. We also remove other variables to begin
+with a lower dimension space. We might bring them back later.
+
+We split the data \textbf{manually} between training set (2/3) and
+testing set (1/3). It is important to split the training and testing set
+at an index which is a multiple of 64, so that we do not scatter a
+country data accross testing an training set.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}226}]:} \PY{n}{lines\PYZus{}count} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+          \PY{n}{lines\PYZus{}per\PYZus{}country} \PY{o}{=} \PY{l+m+mi}{64}
+          
+          \PY{n}{country\PYZus{}count} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{lines\PYZus{}count} \PY{o}{/} \PY{n}{lines\PYZus{}per\PYZus{}country}\PY{p}{)}
+          \PY{n}{train\PYZus{}country\PYZus{}count} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{country\PYZus{}count} \PY{o}{*} \PY{p}{(}\PY{l+m+mi}{2}\PY{o}{/}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+          \PY{n}{test\PYZus{}country\PYZus{}count} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{country\PYZus{}count} \PY{o}{*} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{train\PYZus{}rows\PYZus{}count} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{lines\PYZus{}count} \PY{o}{*} \PY{p}{(}\PY{l+m+mi}{2}\PY{o}{/}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+          \PY{n}{test\PYZus{}rows\PYZus{}count} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{lines\PYZus{}count} \PY{o}{*} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country count: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{country\PYZus{}count}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Train rows count: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{train\PYZus{}rows\PYZus{}count}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test rows count: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{test\PYZus{}rows\PYZus{}count}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Train country count: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{train\PYZus{}country\PYZus{}count}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test country count: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{test\PYZus{}country\PYZus{}count}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Country count: 294
+Train rows count: 12544
+Test rows count: 6272
+Train country count: 196
+Test country count: 98
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}227}]:} \PY{c+c1}{\PYZsh{} There are 18816 lines}
+          \PY{c+c1}{\PYZsh{} each country is made up of 64 lines}
+          
+          \PY{n}{simplified\PYZus{}df} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ConfirmedCases}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total\PYZus{}pop}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+          
+          \PY{n}{simplified\PYZus{}df}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}227}]:} (18816, 2)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}230}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{MinMaxScaler}
+          
+          \PY{c+c1}{\PYZsh{} Normalize}
+          
+          \PY{n}{scaler} \PY{o}{=} \PY{n}{MinMaxScaler}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{reshaped} \PY{o}{=} \PY{n}{array}\PY{p}{(}\PY{n}{simplified\PYZus{}df}\PY{o}{.}\PY{n}{ConfirmedCases}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{scaler}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{reshaped}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{scaler}\PY{o}{.}\PY{n}{data\PYZus{}max\PYZus{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{scaler}\PY{o}{.}\PY{n}{data\PYZus{}min\PYZus{}}\PY{p}{)}
+          \PY{n}{normalized} \PY{o}{=} \PY{n}{scaler}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{reshaped}\PY{p}{)}
+          \PY{n}{simplified\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ConfirmedCases}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{normalized}
+          
+          \PY{n}{reshaped} \PY{o}{=} \PY{n}{array}\PY{p}{(}\PY{n}{simplified\PYZus{}df}\PY{o}{.}\PY{n}{total\PYZus{}pop}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{scaler}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{reshaped}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{scaler}\PY{o}{.}\PY{n}{data\PYZus{}max\PYZus{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{scaler}\PY{o}{.}\PY{n}{data\PYZus{}min\PYZus{}}\PY{p}{)}
+          \PY{n}{normalized} \PY{o}{=} \PY{n}{scaler}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{reshaped}\PY{p}{)}
+          \PY{n}{simplified\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total\PYZus{}pop}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{normalized}
+          
+          \PY{n}{simplified\PYZus{}df}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1.]
+[0.]
+[1.]
+[0.]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}loutouk\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}ipykernel\_launcher.py:12: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row\_indexer,col\_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user\_guide/indexing.html\#returning-a-view-versus-a-copy
+  if sys.path[0] == '':
+C:\textbackslash{}Users\textbackslash{}loutouk\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}ipykernel\_launcher.py:19: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row\_indexer,col\_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user\_guide/indexing.html\#returning-a-view-versus-a-copy
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}230}]:}        ConfirmedCases     total\_pop
+          count    18816.000000  18816.000000
+          mean         0.004613      0.172518
+          std          0.048129      0.310446
+          min          0.000000      0.000000
+          25\%          0.000000      0.006149
+          50\%          0.000000      0.025867
+          75\%          0.000202      0.232174
+          max          1.000000      1.000000
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}231}]:} \PY{n}{x\PYZus{}train} \PY{o}{=} \PY{n}{simplified\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{n}{train\PYZus{}rows\PYZus{}count}\PY{p}{)}
+          \PY{n}{x\PYZus{}test} \PY{o}{=} \PY{n}{simplified\PYZus{}df}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{n}{test\PYZus{}rows\PYZus{}count}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}232}]:} \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{x\PYZus{}train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ConfirmedCases}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{x\PYZus{}test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ConfirmedCases}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    There is a sequence of 64 consecutive days for each country. We will
+split the dataframe into subsequences of 63 time steps. The following
+and final time step will be the prediction used for training: we will
+train the model to predict the number of cases on the 64th day according
+to the previous 63 days.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}233}]:} \PY{n}{x\PYZus{}days\PYZus{}train} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{p}{)}
+          \PY{n}{y\PYZus{}days\PYZus{}train} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{p}{)}
+          \PY{n}{length} \PY{o}{=} \PY{n}{lines\PYZus{}per\PYZus{}country}
+          \PY{n}{country\PYZus{}count} \PY{o}{=} \PY{n}{train\PYZus{}country\PYZus{}count}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{length}\PY{o}{*}\PY{n}{country\PYZus{}count}\PY{p}{,}\PY{n}{length}\PY{p}{)}\PY{p}{:}
+              \PY{n}{x\PYZus{}day\PYZus{}train} \PY{o}{=} \PY{n}{x\PYZus{}train}\PY{p}{[}\PY{n}{i}\PY{p}{:}\PY{n}{i}\PY{o}{+}\PY{n}{length}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+              \PY{n}{x\PYZus{}days\PYZus{}train}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{x\PYZus{}day\PYZus{}train}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+              \PY{n}{y\PYZus{}day\PYZus{}train} \PY{o}{=} \PY{n}{y\PYZus{}train}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{n}{length}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{n}{i}\PY{o}{+}\PY{n}{length}\PY{p}{]}
+              \PY{n}{y\PYZus{}days\PYZus{}train}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{y\PYZus{}day\PYZus{}train}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x\PYZus{}days\PYZus{}train}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{y\PYZus{}days\PYZus{}train}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+196
+196
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}234}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          \PY{k+kn}{from} \PY{n+nn}{numpy} \PY{k}{import} \PY{n}{array}
+          
+          \PY{c+c1}{\PYZsh{} The LSTM needs data with the format of [samples, time steps and features]}
+          \PY{c+c1}{\PYZsh{} Here, we have 196 samples, 63 time steps per sample, and 2 features}
+          \PY{c+c1}{\PYZsh{} First, we need to convert our list of arrays into a 2D NumPy array of 196 x 2}
+          
+          \PY{c+c1}{\PYZsh{} convert list of arrays into 2d array}
+          \PY{n}{x\PYZus{}train} \PY{o}{=} \PY{n}{array}\PY{p}{(}\PY{n}{x\PYZus{}days\PYZus{}train}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+          \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{array}\PY{p}{(}\PY{n}{y\PYZus{}days\PYZus{}train}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(196, 63, 2)
+(196, 1)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}235}]:} \PY{c+c1}{\PYZsh{} Next, we can use the reshape() function }
+          \PY{c+c1}{\PYZsh{} to add one additional dimension for our features}
+          
+          \PY{c+c1}{\PYZsh{} reshape into [samples, timesteps, features]}
+          \PY{c+c1}{\PYZsh{} expect [196, 63, 2]}
+          
+          \PY{n}{x\PYZus{}train} \PY{o}{=} \PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{train\PYZus{}country\PYZus{}count}\PY{p}{,} \PY{l+m+mi}{63}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(196, 63, 2)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}236}]:} \PY{c+c1}{\PYZsh{} Create test set}
+          
+          \PY{n}{x\PYZus{}days\PYZus{}test} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{p}{)}
+          \PY{n}{y\PYZus{}days\PYZus{}test} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{p}{)}
+          \PY{n}{length} \PY{o}{=} \PY{n}{lines\PYZus{}per\PYZus{}country}
+          \PY{n}{country\PYZus{}count} \PY{o}{=} \PY{n}{test\PYZus{}country\PYZus{}count}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{length}\PY{o}{*}\PY{n}{country\PYZus{}count}\PY{p}{,}\PY{n}{length}\PY{p}{)}\PY{p}{:}
+              \PY{n}{x\PYZus{}day\PYZus{}test} \PY{o}{=} \PY{n}{x\PYZus{}test}\PY{p}{[}\PY{n}{i}\PY{p}{:}\PY{n}{i}\PY{o}{+}\PY{n}{length}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+              \PY{n}{x\PYZus{}days\PYZus{}test}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{x\PYZus{}day\PYZus{}test}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+              \PY{n}{y\PYZus{}day\PYZus{}test} \PY{o}{=} \PY{n}{y\PYZus{}test}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{n}{length}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{n}{i}\PY{o}{+}\PY{n}{length}\PY{p}{]}
+              \PY{n}{y\PYZus{}days\PYZus{}test}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{y\PYZus{}day\PYZus{}test}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x\PYZus{}days\PYZus{}test}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{y\PYZus{}days\PYZus{}test}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{x\PYZus{}test} \PY{o}{=} \PY{n}{array}\PY{p}{(}\PY{n}{x\PYZus{}days\PYZus{}test}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+          \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{array}\PY{p}{(}\PY{n}{y\PYZus{}days\PYZus{}test}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+          
+          \PY{n}{x\PYZus{}test} \PY{o}{=} \PY{n}{x\PYZus{}test}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{test\PYZus{}country\PYZus{}count}\PY{p}{,} \PY{l+m+mi}{63}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+98
+98
+(98, 63, 2)
+(98, 1)
+(98, 63, 2)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}240}]:} \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{models} \PY{k}{import} \PY{n}{Sequential}
+          \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{layers} \PY{k}{import} \PY{n}{LSTM}
+          \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{layers} \PY{k}{import} \PY{n}{Dense}
+          
+          \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{pyplot}
+          
+          \PY{c+c1}{\PYZsh{} Define model}
+          \PY{n}{n\PYZus{}steps} \PY{o}{=} \PY{l+m+mi}{63}
+          \PY{n}{n\PYZus{}features} \PY{o}{=} \PY{l+m+mi}{2}
+          \PY{n}{n\PYZus{}batch} \PY{o}{=} \PY{l+m+mi}{4}
+          \PY{n}{model} \PY{o}{=} \PY{n}{Sequential}\PY{p}{(}\PY{p}{)}
+          \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{LSTM}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{n}{input\PYZus{}shape}\PY{o}{=}\PY{p}{(}\PY{n}{n\PYZus{}steps}\PY{p}{,} \PY{n}{n\PYZus{}features}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+          \PY{n}{model}\PY{o}{.}\PY{n}{compile}\PY{p}{(}\PY{n}{optimizer}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mse}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} fit network}
+          \PY{n}{history} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{epochs}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,}\PYZbs{}
+                              \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{n}{n\PYZus{}batch}\PY{p}{,} \PY{n}{validation\PYZus{}data}\PY{o}{=}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{,}\PYZbs{}
+                              \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{shuffle}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} plot history}
+          \PY{n}{pyplot}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{pyplot}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val\PYZus{}loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{pyplot}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+          \PY{n}{pyplot}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}241}]:} \PY{n}{predictions} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}242}]:} \PY{n}{inversed\PYZus{}pred} \PY{o}{=} \PY{n}{scaler}\PY{o}{.}\PY{n}{inverse\PYZus{}transform}\PY{p}{(}\PY{n}{predictions}\PY{p}{)}
+          \PY{n}{inversed\PYZus{}real} \PY{o}{=} \PY{n}{scaler}\PY{o}{.}\PY{n}{inverse\PYZus{}transform}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{)}
+              
+          \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{18}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{inversed\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{inversed\PYZus{}pred}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Predicted Cases}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{inversed\PYZus{}real}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{inversed\PYZus{}real}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Real Cases}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fatalities}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{upper left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_25_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We can see that the model is relatively accurate for predicting the
+number of cases on the 64th day according to the last 63 days. It has
+been tested on more than 6000 unseen countries. The result should not be
+a suprise, as this is really a easy task that a human can do as well. A
+more interesting approach could be to group days into weeks, and to try
+to predict the result of the next week(s) according to previous weeks.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}212}]:} \PY{c+c1}{\PYZsh{} Serialize model to JSON}
+          
+          \PY{n}{model\PYZus{}json} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{to\PYZus{}json}\PY{p}{(}\PY{p}{)}
+          \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{model.json}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{w}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{k}{as} \PY{n}{json\PYZus{}file}\PY{p}{:}
+              \PY{n}{json\PYZus{}file}\PY{o}{.}\PY{n}{write}\PY{p}{(}\PY{n}{model\PYZus{}json}\PY{p}{)}
+              
+          \PY{c+c1}{\PYZsh{} serialize weights to HDF5}
+          \PY{n}{model}\PY{o}{.}\PY{n}{save\PYZus{}weights}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{model.h5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Saved model to disk}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Saved model to disk
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}243}]:} \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{models} \PY{k}{import} \PY{n}{model\PYZus{}from\PYZus{}json}
+          
+          \PY{c+c1}{\PYZsh{} Later...}
+           
+          \PY{c+c1}{\PYZsh{} load json and create model}
+          \PY{n}{json\PYZus{}file} \PY{o}{=} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{model.json}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{loaded\PYZus{}model\PYZus{}json} \PY{o}{=} \PY{n}{json\PYZus{}file}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}
+          \PY{n}{json\PYZus{}file}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+          \PY{n}{loaded\PYZus{}model} \PY{o}{=} \PY{n}{model\PYZus{}from\PYZus{}json}\PY{p}{(}\PY{n}{loaded\PYZus{}model\PYZus{}json}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} load weights into new model}
+          \PY{n}{loaded\PYZus{}model}\PY{o}{.}\PY{n}{load\PYZus{}weights}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{model.h5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Loaded model from disk}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+           
+          \PY{c+c1}{\PYZsh{} evaluate loaded model on test data}
+          \PY{n}{loaded\PYZus{}model}\PY{o}{.}\PY{n}{compile}\PY{p}{(}\PY{n}{optimizer}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mse}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{score} \PY{o}{=} \PY{n}{loaded\PYZus{}model}\PY{o}{.}\PY{n}{evaluate}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{prediction} \PY{o}{=} \PY{n}{loaded\PYZus{}model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Loaded model from disk
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
